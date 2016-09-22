@@ -30,9 +30,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.title = @"First";
-    }
+    
     return self;
 }
 
@@ -42,7 +40,7 @@
     [super viewDidLoad];
     
     [[self rdv_tabBarItem] setBadgeValue:@"3"];
-    
+    self.title = @"First";
     if (self.rdv_tabBarController.tabBar.translucent) {
         UIEdgeInsets insets = UIEdgeInsetsMake(0,
                                                0,
