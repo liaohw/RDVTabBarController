@@ -1,6 +1,6 @@
 # RDVTabBarController
 
-##源码和Example说明：
+##源码和Example说明：[源码阅读笔记]
 - 在didFinishLaunchingWithOptions中实现
 
 ``` objectivec
@@ -20,19 +20,19 @@ self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];  
 代码中include RDVTabBarController.h，而不需要继承或扩展RDVTabBarController再使用，因为直接通过rdv_tabBarController就可以访问到，因为：
 ``` objectivec
 - (void)rdv_setTabBarController:(RDVTabBarController *)tabBarController {
-objc_setAssociatedObject(self, @selector(rdv_tabBarController), tabBarController, OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, @selector(rdv_tabBarController), tabBarController, OBJC_ASSOCIATION_ASSIGN);
 }
 - (void)setViewControllers:(NSArray *)viewControllers {
-。。。
-for (UIViewController *viewController in viewControllers) {
-[viewController rdv_setTabBarController:self];    //将自己RDVTabBarController分表关联到每个UITableViewController
-。。。
+    。。。
+    for (UIViewController *viewController in viewControllers) {
+        [viewController rdv_setTabBarController:self];    //将自己RDVTabBarController分表关联到每个UITableViewController
+    。。。
 ```
 tabbar和tabView的关联【关联直接以每个tabView实际函数为关联Key】：objc_setAssociatedObject(源对象，关键字，关联的对象和一个关联策略)
 ``` objectivec
 - (RDVTabBarController *)rdv_tabBarController {
-RDVTabBarController *tabBarController = objc_getAssociatedObject(self, @selector(rdv_tabBarController));
-。。。
+    RDVTabBarController *tabBarController = objc_getAssociatedObject(self, @selector(rdv_tabBarController));
+    。。。
 ```
 所以在每个UITableViewController中用rdv_tabBarController就访问到tabbar
 
@@ -44,6 +44,12 @@ RDVTabBarController *tabBarController = objc_getAssociatedObject(self, @selector
 [navigationBarAppearance setBackgroundImage:backgroundImage forBarMetrics:UIBarMetricsDefault];
 ```
 竖屏横屏都有，横屏导航条变宽，则自动repeat图片【切图覆盖整个frame，一般切图宽度都是1】
+
+
+----------
+以下是原文介绍：
+
+----------
 
 
 
